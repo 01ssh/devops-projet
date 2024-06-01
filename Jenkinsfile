@@ -14,7 +14,7 @@ pipeline {
                 deleteDir()
 
                 // Clone the Git repository
-                git branch: 'main',
+                git branch: 'master',
                     url: 'https://github.com/parkltos/devops-project-1.git'
 
                 sh "ls -lart"

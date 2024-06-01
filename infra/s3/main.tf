@@ -17,4 +17,4 @@ resource "aws_s3_bucket" "remote_state_bucket" {
 }*/
 
 
-#aws s3api create-bucket --bucket remote-projet-rncp --region eu-west-3 --create-bucket-configuration LocationConstraint=eu-west-3      
+a#ws s3api create-bucket --bucket remote-projet-rncp --region eu-west-3 --create-bucket-configuration LocationConstraint=eu-west-3      

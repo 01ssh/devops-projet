@@ -10,6 +10,10 @@ output "remote_state_s3_bucket_name" {
 resource "aws_s3_bucket" "remote_state_bucket" {
   bucket = var.bucket_name
 
+   lifecycle {
+    ignore_changes = [bucket]  # Ignore changes to the bucket name
+  }
+
   tags = {
     Name        = var.name
     Environment = var.environment

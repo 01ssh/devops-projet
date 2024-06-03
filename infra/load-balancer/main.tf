@@ -56,7 +56,7 @@ resource "aws_lb_listener" "dev_proj_1_lb_listner" {
 
 # https listner on port 443
 resource "aws_lb_listener" "dev_proj_1_lb_https_listner" {
-  load_balancer_arn = aws_lb.dev_lb.arn
+  load_balancer_arn = aws_lb.dev_lb_python.arn
   port              = var.lb_https_listner_port
   protocol          = var.lb_https_listner_protocol
   ssl_policy        = "ELBSecurityPolicy-FS-1-2-Res-2019-08"

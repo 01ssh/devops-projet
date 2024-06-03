@@ -86,3 +86,8 @@ module "rds_db_instance" {
   mysql_password       = "dbpassword"
   mysql_dbname         = "devprojdb"
 }
+
+resource "aws_key_pair" "service_keypair" {
+  key_name = "production"
+  public_key = data.vault_generic_secret.service_ssh_key.data["public_key"]
+}

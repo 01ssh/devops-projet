@@ -6,6 +6,9 @@ yes | sudo apt install python3 python3-pip
 git clone https://github.com/prkltos/python-mysql-db-proj-1.git
 sleep 20
 # shellcheck disable=SC2164
+sudo apt-get install nodejs npm
+nodejs -v
+npm -v
 cd python-mysql-db-proj-1
 pip3 install -r requirements.txt
 echo 'Waiting for 30 seconds before running the app.py'

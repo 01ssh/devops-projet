@@ -36,6 +36,6 @@ resource "aws_instance" "dev_proj_1_ec2" {
 }
 
 resource "aws_key_pair" "dev_proj_1_public_key" {
-  key_name   = "ca_y_est_boss"
+  key_name   = "aws_key"
   public_key = var.public_key
 }

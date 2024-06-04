@@ -1,6 +1,5 @@
 #! /bin/bash
-set -e
-echo "Updating packages"
+
 yes | sudo apt update
 echo "Installing python3 and pip3"
 yes | sudo apt install python3 python3-pip
@@ -8,7 +7,7 @@ echo "Cloning the repository"
 git clone https://github.com/prkltos/python-mysql-db-proj-1.git
 sleep 20
 echo "Installing nodejs and npm"
-yes |  sudo apt-get install nodejs npm
+yes | sudo apt-get install nodejs npm
 nodejs -v
 npm -v
 echo "Installing python3-venv"

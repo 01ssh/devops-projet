@@ -11,7 +11,7 @@ yes | sudo apt-get install nodejs npm
 nodejs -v
 npm -v
 echo "Installing python3-venv"
-sudo apt-get install python3-venv
+yes | sudo apt-get install python3-venv 
 echo "Navigating to the project directory"
 cd python-mysql-db-proj-1
 echo "Creating a virtual environment"

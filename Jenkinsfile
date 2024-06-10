@@ -48,30 +48,13 @@ pipeline {
         }
 
         stage('Terraform Apply') {
-            steps {
-                script {
-                    if (params.APPLY_TERRAFORM) {
-                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-prkltos']]){
-                            dir('infra') {
-                                sh 'echo "=================Terraform Apply=================="'
-                                sh 'terraform apply -auto-approve'
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        stage('Terraform Destroy') {
-            steps {
-                script {
-                    if (params.DESTROY_TERRAFORM) {
-                       withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-prkltos']]){
-                            dir('infra') {
-                                sh 'echo "=================Terraform Destroy=================="'
-                                sh 'terraform destroy -auto-approve'
-                            }
-                        }
+    steps {
+        script {
+            if (params.APPLY_TERRAFORM) {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-prkltos']]){
+                    dir('infra') {
+                        sh 'echo "=================Terraform Apply=================="'
+                        sh 'terraform apply -auto-approve'
                     }
                 }
             }

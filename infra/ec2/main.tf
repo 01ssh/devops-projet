@@ -4,18 +4,21 @@ variable "subnet_ids" {}
 variable "vpc_id" {}
 
 module "eks" {
-  source          = "terraform-aws-modules/eks/aws"
+  source  = "terraform-aws-modules/eks/aws"
+  version = "17.23.0"  # Replace with the latest version
+
   cluster_name    = var.cluster_name
   cluster_version = var.cluster_version
-  subnets         = var.subnet_ids
   vpc_id          = var.vpc_id
+
+  node_groups_defaults = {
+    desired_capacity = 2
+    max_capacity     = 10
+    min_capacity     = 1
+  }
 
   node_groups = {
     eks_nodes = {
-      desired_capacity = 2
-      max_capacity     = 10
-      min_capacity     = 1
-
       instance_type = var.instance_type
       key_name      = "aws_key"
     }

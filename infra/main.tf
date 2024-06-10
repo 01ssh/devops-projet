@@ -88,3 +88,26 @@ module "rds_db_instance" {
 }
 
  
+module "eks" {
+  source          = "terraform-aws-modules/eks/aws"
+  cluster_name    = "my-eks-cluster"
+  cluster_version = "1.20"
+  subnets         = ["subnet-abcde012", "subnet-bcde012a", "subnet-fghi345a"]
+  vpc_id          = module.networking.dev_proj_1_vpc_id
+
+  node_groups = {
+    eks_nodes = {
+      desired_capacity = 2
+      max_capacity     = 10
+      min_capacity     = 1
+
+      instance_type = "m5.large"
+      key_name      = "EKS"
+    }
+  }
+}
+
+resources aws_key_pair "my-key-name" {
+  key_name   = "EKS"
+  public_key = file("~/.ssh/id_rsa.pub")
+}

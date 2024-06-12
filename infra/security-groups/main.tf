@@ -93,3 +93,12 @@ resource "aws_security_group" "ec2_sg_python_api" {
     Name = "Security Groups to allow traffic on port 5000"
   }
 }
+
+resource "aws_security_group_rule" "allow_grafana_port" {
+  type             = "ingress"
+  from_port        = 3000
+  to_port          = 3000
+  protocol         = "tcp"
+  cidr_blocks      = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ec2_sg_python_api.id
+}

@@ -8,10 +8,10 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
-            steps {
-                // Checkout the code from the configured repository
-                checkout scm
+        stage('Checkout SCM'){
+            steps{
+                script{
+                  checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins', url: 'https://github.com/prkltos/devops-projet.git']])                }
             }
         }
 
@@ -85,3 +85,5 @@ pipeline {
         }
     }
 }
+
+

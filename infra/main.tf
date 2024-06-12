@@ -86,4 +86,3 @@ module "rds_db_instance" {
   mysql_password       = "dbpassword"
   mysql_dbname         = "devprojdb"
 }
-sudo apt-get install grafana

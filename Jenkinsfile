@@ -6,6 +6,15 @@ pipeline {
             booleanParam(name: 'APPLY_TERRAFORM', defaultValue: false, description: 'Check to apply Terraform changes')
             booleanParam(name: 'DESTROY_TERRAFORM', defaultValue: false, description: 'Check to apply Terraform changes')
     }
+    node {
+  stage ('Checkout') {
+    svn 'https://svn.mycorp/trunk/'
+    stage 'Build'
+    sh 'make all'
+    stage 'Test'
+    sh 'make test'
+  }
+}
     stages {
         stage('Checkout') {
             steps {
@@ -13,7 +22,12 @@ pipeline {
                 checkout scm
             }
         }
-        
+        stage('SCM') {
+            steps {
+                // Your SCM steps here
+            }
+        }
+
     stages {
         stage('Clone Repository') {
             steps {

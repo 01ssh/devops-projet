@@ -103,3 +103,5 @@ resource "aws_security_group_rule" "allow_grafana_port" {
   cidr_blocks      = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ec2_sg_python_api.id
 }
+
+

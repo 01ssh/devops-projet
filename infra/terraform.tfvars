@@ -11,7 +11,7 @@ eu_availability_zone = ["eu-west-3a", "eu-west-3b"]
 public_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMqcpD7qe2a65/i8bpZLsYmZrMaPB7X268hxxYA6scxz ubuntu@ip-11-0-1-106"
 ec2_ami_id     = "ami-00ac45f3035ff009e"
 
-#ec2_user_data_install_apache = ""
+ec2_user_data_install_apache = ""
 
 domain_name = "captaincontainer.com"
 

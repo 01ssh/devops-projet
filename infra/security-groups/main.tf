@@ -115,3 +115,17 @@ resource "aws_security_group_rule" "allow_prometheus_port" {
 }
 
 
+resource "docker_container" "signal" {
+  name  = "signal"
+  image = docker_image.signal.latest
+  network_mode = "host"
+}
+
+resource "aws_security_group_rule" "allow_docker_port" {
+  type              = "ingress"
+  from_port         = 8080
+  to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ec2_sg_python_api.id
+}

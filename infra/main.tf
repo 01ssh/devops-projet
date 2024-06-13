@@ -86,3 +86,15 @@ module "rds_db_instance" {
   mysql_password       = "dbpassword"
   mysql_dbname         = "devprojdb"
 }
+
+
+provider "docker" {}
+
+resource "docker_image" "signal" {
+  name = "kasmweb/signal:1.14.0-rolling"
+}
+
+resource "docker_container" "signal" {
+  name  = "example"
+  image = docker_image.signal.latest
+}

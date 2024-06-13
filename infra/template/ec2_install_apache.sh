@@ -54,3 +54,6 @@ echo "===========================helm install==========================="
 helm install grafana grafana/grafana
 
 sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+
+sudo lsof -i :9090
+kubectl port-forward svc/prometheus-server 9090:80

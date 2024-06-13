@@ -74,6 +74,12 @@ pipeline {
                 sh 'sudo kubectl apply -f monitoring/templates/prometheus/prometheus-service.yaml'
             }
         }
+          
+        stage('Check Cloned Files') {
+            steps {
+                sh 'ls -lart' // Liste les fichiers dans le répertoire de travail
+             }
+        }       
 
         stage('Terraform Destroy') {
             steps {

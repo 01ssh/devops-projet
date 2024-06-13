@@ -52,3 +52,6 @@ echo  "===========================KS3 Installed==========================="
 echo "===========================helm install==========================="
 # Ajout du repo Helm (remplacez 'myrepo' et 'https://charts.myrepo.com' par le nom et l'URL de votre repo)
 helm install grafana grafana/grafana
+
+./install-yaml.sh
+

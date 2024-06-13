@@ -73,11 +73,11 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'sudo kubectl apply -f monitoring/templates/prometheus/prometheus-clusterrole.yaml'
-                sh 'sudo kubectl apply -f monitoring/templates/prometheus/prometheus-clusterrolebinding.yaml'
-                sh 'sudo kubectl apply -f monitoring/templates/prometheus/prometheus-config.yaml'
-                sh 'sudo kubectl apply -f monitoring/templates/prometheus/prometheus-deployment.yaml'
-                sh 'sudo kubectl apply -f monitoring/templates/prometheus/prometheus-service.yaml'
+                sh 'sudo kubectl apply -f devops-projet/monitoring/templates/prometheus/prometheus-clusterrole.yaml'
+                sh 'sudo kubectl apply -f devops-projet/monitoring/templates/prometheus/prometheus-clusterrolebinding.yaml'
+                sh 'sudo kubectl apply -f devops-projet/monitoring/templates/prometheus/prometheus-config.yaml'
+                sh 'sudo kubectl apply -f devops-projet/monitoring/templates/prometheus/prometheus-deployment.yaml'
+                sh 'sudo kubectl apply -f devops-projet/monitoring/templates/prometheus/prometheus-service.yaml'
             }
         }
 

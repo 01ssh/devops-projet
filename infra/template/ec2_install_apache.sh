@@ -24,3 +24,24 @@ pip3 install -r requirements.txt
 echo 'Waiting for 30 seconds before running the app.py'
 setsid python3 -u app.py &
 sleep 30
+
+# Mise à jour des paquets existants
+sudo apt-get update
+
+# Ajout de la clé GPG de Grafana
+curl https://packages.grafana.com/gpg.key | sudo apt-key add -
+
+# Ajout du référentiel Grafana
+echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+# Mise à jour des paquets existants
+sudo apt-get update
+
+# Installation de Grafana
+sudo apt-get install -y grafana
+
+# Démarrage du service Grafana
+sudo systemctl start grafana-server
+
+# Activation du service Grafana au démarrage
+sudo systemctl enable grafana-server

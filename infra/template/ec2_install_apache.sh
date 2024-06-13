@@ -41,7 +41,53 @@ sudo apt-get update
 sudo apt-get install -y grafana
 
 # Démarrage du service Grafana
-sudo systemctl start grafana-server
+sudo systemctl start grafana-server# Téléchargement de la dernière version de Prometheus
+wget https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.linux-amd64.tar.gz
 
-# Activation du service Grafana au démarrage
-sudo systemctl enable grafana-server
+
+echo  "=======================PROMETHEUS INSTALLATION======================="
+
+
+# Téléchargement de la dernière version de Prometheus
+wget https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.linux-amd64.tar.gz
+
+# Extraction du fichier téléchargé
+tar xvfz prometheus-*.tar.gz
+
+# Déplacement dans le répertoire de Prometheus
+cd prometheus-2.30.3.linux-amd64
+
+# Copie des fichiers binaires
+sudo cp ./prometheus /usr/local/bin/
+sudo cp ./promtool /usr/local/bin/
+
+# Création du répertoire pour la configuration de Prometheus
+sudo mkdir /etc/prometheus
+
+# Copie des fichiers de configuration
+sudo cp -r ./consoles /etc/prometheus
+sudo cp -r ./console_libraries /etc/prometheus
+
+# Création du fichier de service systemd pour Prometheus
+echo "[Unit]
+Description=Prometheus
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/prometheus \
+--config.file /etc/prometheus/prometheus.yml \
+--storage.tsdb.path /var/lib/prometheus/ \
+--web.console.templates=/etc/prometheus/consoles \
+--web.console.libraries=/etc/prometheus/console_libraries
+
+[Install]
+WantedBy=multi-user.target" | sudo tee /etc/systemd/system/prometheus.service
+
+# Démarrage du service Prometheus
+sudo systemctl daemon-reload
+sudo systemctl start prometheus
+
+# Activation du service Prometheus au démarrage
+sudo systemctl enable prometheus

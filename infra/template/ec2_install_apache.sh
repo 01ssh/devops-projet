@@ -41,13 +41,5 @@ sudo apt-get update
 sudo apt-get install -y grafana
 
 # Démarrage du service Grafana
-sudo systemctl start grafana-server# Téléchargement de la dernière version de Prometheus
-wget https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.linux-amd64.tar.gz
-
-
-echo  "=======================PROMETHEUS INSTALLATION======================="
-
-
-# Téléchargement de la dernière version de Prometheus
-wget https://github.com/prometheus/prometheus/releases/download/v2.30.3/prometheus-2.30.3.linux-amd64.tar.gz
+sudo systemctl start grafana-server
 

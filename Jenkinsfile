@@ -11,19 +11,15 @@ pipeline {
         stage('Checkout SCM'){
             steps{
                 script{
-                  checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins', url: 'https://github.com/prkltos/devops-projet.git']])                }
+                    checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins', url: 'https://github.com/prkltos/devops-projet.git']])
+                }
             }
         }
 
         stage('Clone Repository') {
             steps {
-                // Clean workspace before cloning (optional)
-                deleteDir()
-
-                // Clone the Git repository
-                git branch: 'master',
-                    url: 'https://github.com/prkltos/devops-projet.git'
-
+                deleteDir() // Clean workspace before cloning (optional)
+                git branch: 'master', url: 'https://github.com/prkltos/devops-projet.git'
                 sh "ls -lart"
             }
         }
@@ -69,6 +65,16 @@ pipeline {
             }
         }
 
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'sudo k3s kubectl apply -f monitoring/templates/prometheus/prometheus-clusterrole.yaml'
+                sh 'sudo k3s kubectl apply -f monitoring/templates/prometheus/prometheus-clusterrolebinding.yaml'
+                sh 'sudo k3s kubectl apply -f monitoring/templates/prometheus/prometheus-config.yaml'
+                sh 'sudo k3s kubectl apply -f monitoring/templates/prometheus/prometheus-deployment.yaml'
+                sh 'sudo k3s kubectl apply -f monitoring/templates/prometheus/prometheus-service.yaml'
+            }
+        }
+
         stage('Terraform Destroy') {
             steps {
                 script {
@@ -85,5 +91,3 @@ pipeline {
         }
     }
 }
-
-

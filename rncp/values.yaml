@@ -1,8 +1,0 @@
-image:
-  repository: kasmweb/desktop
-  tag: 1.14.0-rolling
-  pullPolicy: IfNotPresent
-
-service:
-  port: 80
-  type: NodePort

@@ -1,0 +1,4 @@
+apiVersion: v2
+name: rncp
+description: Un chart Helm pour déployer une image Docker
+version: 0.1.0

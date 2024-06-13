@@ -43,3 +43,12 @@ sudo apt-get install -y grafana
 # Démarrage du service Grafana
 sudo systemctl start grafana-server
 
+#Install K3S
+curl -sfL https://get.k3s.io | sh - 
+# Check for Ready node, takes ~30 seconds 
+sudo k3s kubectl get node 
+echo  "===========================KS3 Installed==========================="
+
+echo "===========================helm install==========================="
+# Ajout du repo Helm (remplacez 'myrepo' et 'https://charts.myrepo.com' par le nom et l'URL de votre repo)
+helm install grafana grafana/grafana

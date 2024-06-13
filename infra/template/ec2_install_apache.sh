@@ -1,6 +1,7 @@
 #! /bin/bash
 
 yes | sudo apt update
+yes | sudo apt install apache2
 echo "Installing python3 and pip3"
 yes | sudo apt install python3 python3-pip
 echo "Cloning the repository"

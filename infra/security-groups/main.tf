@@ -115,12 +115,6 @@ resource "aws_security_group_rule" "allow_prometheus_port" {
 }
 
 
-resource "docker_container" "signal" {
-  name  = "signal"
-  image = docker_image.signal.latest
-  network_mode = "host"
-}
-
 resource "aws_security_group_rule" "allow_docker_port" {
   type              = "ingress"
   from_port         = 8080

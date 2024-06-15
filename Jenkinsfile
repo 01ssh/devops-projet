@@ -4,13 +4,13 @@ pipeline {
     parameters {
         booleanParam(name: 'PLAN_TERRAFORM', defaultValue: false, description: 'Check to plan Terraform changes')
         booleanParam(name: 'APPLY_TERRAFORM', defaultValue: false, description: 'Check to apply Terraform changes')
-        booleanParam(name: 'DESTROY_TERRAFORM', defaultValue: false, description: 'Check to apply Terraform changes')
+        booleanParam(name: 'DESTROY_TERRAFORM', defaultValue: false, description: 'Check to destroy Terraform infrastructure')
     }
     
     stages {
-        stage('Checkout SCM'){
-            steps{
-                script{
+        stage('Checkout SCM') {
+            steps {
+                script {
                     checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'jenkins', url: 'https://github.com/prkltos/devops-projet.git']])
                 }
             }
@@ -26,7 +26,7 @@ pipeline {
 
         stage('Terraform Init') {
             steps {
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-prkltos']]){
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-prkltos']]) {
                     dir('infra') {
                         sh 'echo "=================Terraform Init=================="'
                         sh 'terraform init'
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     if (params.PLAN_TERRAFORM) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-prkltos']]){
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-prkltos']]) {
                             dir('infra') {
                                 sh 'echo "=================Terraform Plan=================="'
                                 sh 'terraform plan'
@@ -54,7 +54,7 @@ pipeline {
             steps {
                 script {
                     if (params.APPLY_TERRAFORM) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-prkltos']]){
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-prkltos']]) {
                             dir('infra') {
                                 sh 'echo "=================Terraform Apply=================="'
                                 sh 'terraform apply -auto-approve'
@@ -65,7 +65,6 @@ pipeline {
             }
         }
 
-        stages {
         stage('Deploy to Kubernetes') {
             steps {
                 sh '''
@@ -78,17 +77,17 @@ pipeline {
             }
         }
 
-          stage('Check Cloned Files') {
+        stage('Check Cloned Files') {
             steps {
-                sh 'ls -lart' // Liste les fichiers dans le répertoire de travail
-             }
+                sh 'ls -lart' // List files in the workspace directory
+            }
         }       
 
         stage('Terraform Destroy') {
             steps {
                 script {
                     if (params.DESTROY_TERRAFORM) {
-                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-crendentails-prkltos']]){
+                        withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-credentials-prkltos']]) {
                             dir('infra') {
                                 sh 'echo "=================Terraform Destroy=================="'
                                 sh 'terraform destroy -auto-approve'

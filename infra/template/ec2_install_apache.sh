@@ -29,22 +29,21 @@ sleep 30
 sudo apt-get update
 
 # Ajout de la clé GPG de Grafana
-curl https://packages.grafana.com/gpg.key | sudo apt-key add -
+#curl https://packages.grafana.com/gpg.key | sudo apt-key add -
 
 # Ajout du référentiel Grafana
-echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+#echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 
-# Mise à jour des paquets existants
-sudo apt-get update
 
 # Installation de Grafana
-sudo apt-get install -y grafana
+#sudo apt-get install -y grafana
 
 # Démarrage du service Grafana
-sudo systemctl start grafana-server
+#sudo systemctl start grafana-server
 
 #Install K3S
 curl -sfL https://get.k3s.io | sh - 
+sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 # Check for Ready node, takes ~30 seconds 
 sudo k3s kubectl get node 
 sudo K3s kubectl create namespace monitoring
@@ -57,6 +56,15 @@ sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml
 sudo k3s kubectl -n monitoring apply -f prometheus-deployment.yaml
 sudo k3s kubectl -n monitoring apply -f prometheus-service.yaml
 
+
+sudo k3s kubectl -n monitoring apply -f grafana-service.yaml
+sudo k3s kubectl -n monitoring apply -f grafana-deployment.yaml
+
+
+
+
+
+
 kubectl port-forward svc/prometheus-service 9090:9090
 
 
@@ -67,9 +75,9 @@ echo  "===========================KS3 Installed==========================="
 
 echo "===========================helm install==========================="
 # Ajout du repo Helm (remplacez 'myrepo' et 'https://charts.myrepo.com' par le nom et l'URL de votre repo)
-helm install grafana grafana/grafana
+helm install grafana grafana/grafana --namespace monitoring
 
-sudo chmod 644 /etc/rancher/k3s/k3s.yaml
+
 
 sudo lsof -i :9090
 kubectl port-forward svc/prometheus-server 9090:80

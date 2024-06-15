@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "remote_state_bucket" {
   bucket = var.bucket_name
 
    lifecycle {
-    ignore_changes = [bucket]  # Ignore changes to the bucket name
+    ignore_changes = [bucket]  
   }
 
   tags = {

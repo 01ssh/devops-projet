@@ -51,22 +51,22 @@ sudo k3s kubectl create namespace monitoring
 sudo k3s kubectl create namespace prod
 sudo k3s kubectl create namespace test
 sudo k3s kubectl create namespace dev
-sudo k3s kubectl -n monitoring apply -f template/prometheus-clusterrole.yaml
-sudo k3s kubectl -n monitoring apply -f template/prometheus-clusterrolebinding.yaml
-sudo k3s kubectl -n monitoring apply -f template/prometheus-config.yaml
-sudo k3s kubectl -n monitoring apply -f template/prometheus-deployment.yaml
-sudo k3s kubectl -n monitoring apply -f template/prometheus-service.yaml
+sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-clusterrole.yaml
+sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-clusterrolebinding.yaml
+sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-config.yaml
+sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-deployment.yaml
+sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-service.yaml
 
 
 sudo k3s kubectl -n monitoring apply -f grafana-service.yaml
 sudo k3s kubectl -n monitoring apply -f grafana-deployment.yaml
 
 
+sudo lsof -i :9090
+sudo ufw disable
 
+sudo k3s kubectl port-forward svc/prometheus-service 9090:9090
 
-
-
-kubectl port-forward svc/prometheus-service 9090:9090
 
 
 
@@ -76,11 +76,9 @@ echo  "===========================KS3 Installed==========================="
 
 echo "===========================helm install==========================="
 # Ajout du repo Helm (remplacez 'myrepo' et 'https://charts.myrepo.com' par le nom et l'URL de votre repo)
-helm install grafana grafana/grafana --namespace monitoring
+#helm install grafana grafana/grafana --namespace monitoring
 
 
 
-sudo lsof -i :9090
-kubectl port-forward svc/prometheus-server 9090:80
 
 

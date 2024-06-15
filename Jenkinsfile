@@ -65,6 +65,19 @@ pipeline {
             }
         }
 
+        stages {
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                    sudo k3s kubectl -n monitoring apply -f prometheus-clusterrole.yaml 
+                    sudo k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
+                    sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml
+                    sudo k3s kubectl -n monitoring apply -f prometheus-deployment.yaml
+                    sudo k3s kubectl -n monitoring apply -f prometheus-service.yaml
+                '''
+            }
+        }
+
           stage('Check Cloned Files') {
             steps {
                 sh 'ls -lart' // Liste les fichiers dans le répertoire de travail

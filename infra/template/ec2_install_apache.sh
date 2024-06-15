@@ -45,17 +45,17 @@ sudo apt-get update
 curl -sfL https://get.k3s.io | sh - 
 sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 # Check for Ready node, takes ~30 seconds 
-SCRIPT_DIR=$(dirname "$0")
+
 sudo k3s kubectl get node 
 sudo k3s kubectl create namespace monitoring
 sudo k3s kubectl create namespace prod
 sudo k3s kubectl create namespace test
 sudo k3s kubectl create namespace dev
-sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-clusterrole.yaml
-sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-clusterrolebinding.yaml
-sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-config.yaml
-sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-deployment.yaml
-sudo k3s kubectl -n monitoring apply -f SCRIPT_DIR=$(dirname "$0")/template/prometheus-service.yaml
+sudo k3s kubectl -n monitoring apply -f template/prometheus-clusterrole.yaml --v=6
+sudo k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
+sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml
+sudo k3s kubectl -n monitoring apply -f prometheus-deployment.yaml
+sudo k3s kubectl -n monitoring apply -f prometheus-service.yaml
 
 
 sudo k3s kubectl -n monitoring apply -f grafana-service.yaml

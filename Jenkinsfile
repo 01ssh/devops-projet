@@ -65,23 +65,11 @@ pipeline {
             }
         }
 
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh '''
-                    sudo /usr/local/bin/k3s kubectl -n monitoring apply -f prometheus-clusterrole.yaml 
-                    sudo /usr/local/bin/k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
-                    sudo /usr/local/bin/k3s kubectl -n monitoring apply -f prometheus-config.yaml
-                    sudo /usr/local/bin/k3s kubectl -n monitoring apply -f prometheus-deployment.yaml
-                    sudo /usr/local/bin/k3s kubectl -n monitoring apply -f prometheus-service.yaml
-                '''
-            }
-        }
-
         stage('Check Cloned Files') {
             steps {
-                sh 'ls -lart' // List files in the workspace directory
+                sh 'ls -lart' 
             }
-        }       
+        }
 
         stage('Terraform Destroy') {
             steps {

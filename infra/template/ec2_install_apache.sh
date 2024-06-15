@@ -29,17 +29,17 @@ sleep 30
 sudo apt-get update
 
 # Ajout de la clé GPG de Grafana
-#curl https://packages.grafana.com/gpg.key | sudo apt-key add -
+curl https://packages.grafana.com/gpg.key | sudo apt-key add -
 
 # Ajout du référentiel Grafana
-#echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 
 
 # Installation de Grafana
-#sudo apt-get install -y grafana
+sudo apt-get install -y grafana
 
 # Démarrage du service Grafana
-#sudo systemctl start grafana-server
+sudo systemctl start grafana-server
 
 #Install K3S
 curl -sfL https://get.k3s.io | sh - 
@@ -51,7 +51,7 @@ sudo k3s kubectl create namespace monitoring
 sudo k3s kubectl create namespace prod
 sudo k3s kubectl create namespace test
 sudo k3s kubectl create namespace dev
-sudo k3s kubectl -n monitoring apply -f template/prometheus-clusterrole.yaml --v=6
+sudo k3s kubectl -n monitoring apply -f template/prometheus-clusterrole.yaml 
 sudo k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
 sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml
 sudo k3s kubectl -n monitoring apply -f prometheus-deployment.yaml

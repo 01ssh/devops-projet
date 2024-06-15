@@ -46,10 +46,10 @@ curl -sfL https://get.k3s.io | sh -
 sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 # Check for Ready node, takes ~30 seconds 
 sudo k3s kubectl get node 
-sudo K3s kubectl create namespace monitoring
-sudo K3s kubectl create namespace prod
-sudo K3s kubectl create namespace test
-sudo K3s kubectl create namespace dev
+sudo k3s kubectl create namespace monitoring
+sudo k3s kubectl create namespace prod
+sudo k3s kubectl create namespace test
+sudo k3s kubectl create namespace dev
 sudo k3s kubectl -n monitoring apply -f prometheus-clusterrole.yaml
 sudo k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
 sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml

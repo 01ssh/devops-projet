@@ -34,3 +34,9 @@ terraform.rc
 
 # Ignore les fichiers .tfvars
 *.tfvars
+*.tar
+*.zip
+*.gz
+*tar.gz/prometheus/
+prometheus/
+/prometheus/

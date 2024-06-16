@@ -45,39 +45,29 @@ sudo systemctl start grafana-server
 curl -sfL https://get.k3s.io | sh - 
 sudo chmod 644 /etc/rancher/k3s/k3s.yaml
 # Check for Ready node, takes ~30 seconds 
+sudo lsof -i :9090
+sudo ufw disable
 
 sudo k3s kubectl get node 
 sudo k3s kubectl create namespace monitoring
 sudo k3s kubectl create namespace prod
 sudo k3s kubectl create namespace test
 sudo k3s kubectl create namespace dev
-sudo k3s kubectl -n monitoring apply -f template/prometheus-clusterrole.yaml 
-sudo k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
-sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml
-sudo k3s kubectl -n monitoring apply -f prometheus-deployment.yaml
-sudo k3s kubectl -n monitoring apply -f prometheus-service.yaml
+#sudo k3s kubectl -n monitoring apply -f prometheus-clusterrole.yaml 
+#sudo k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
+#sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml
+#sudo k3s kubectl -n monitoring apply -f prometheus-deployment.yaml
+#sudo k3s kubectl -n monitoring apply -f prometheus-service.yaml
 
 
-sudo k3s kubectl -n monitoring apply -f grafana-service.yaml
-sudo k3s kubectl -n monitoring apply -f grafana-deployment.yaml
+#sudo k3s kubectl -n monitoring apply -f grafana-service.yaml
+#sudo k3s kubectl -n monitoring apply -f grafana-deployment.yaml
 
 
 sudo lsof -i :9090
 sudo ufw disable
 
-sudo k3s kubectl port-forward svc/prometheus-service 9090:9090
-
-
-
-
-
-
-echo  "===========================KS3 Installed==========================="
-
-echo "===========================helm install==========================="
-# Ajout du repo Helm (remplacez 'myrepo' et 'https://charts.myrepo.com' par le nom et l'URL de votre repo)
-#helm install grafana grafana/grafana --namespace monitoring
-
+#sudo k3s kubectl port-forward svc/prometheus-service 9090:9090
 
 
 

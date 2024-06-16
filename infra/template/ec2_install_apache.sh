@@ -37,6 +37,11 @@ sudo k3s kubectl create namespace prod
 sudo k3s kubectl create namespace test
 sudo k3s kubectl create namespace dev
 sudo mkdir /home/ubuntu/bravo
+cd /home/ubuntu/bravo
+touch bravo.txt
+echo "Bravo" > bravo.txt
+
+
 ## Ajout de la clé GPG de Grafana
 #curl https://packages.grafana.com/gpg.key | sudo apt-key add -
 #

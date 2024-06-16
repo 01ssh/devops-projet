@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 yes | sudo apt update
 yes | sudo apt install apache2
@@ -36,7 +36,7 @@ sudo k3s kubectl create namespace monitoring
 sudo k3s kubectl create namespace prod
 sudo k3s kubectl create namespace test
 sudo k3s kubectl create namespace dev
-
+mkdir test
 ## Ajout de la clé GPG de Grafana
 #curl https://packages.grafana.com/gpg.key | sudo apt-key add -
 #

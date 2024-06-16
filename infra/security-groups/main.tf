@@ -132,3 +132,24 @@ resource "aws_security_group_rule" "allow_node_port" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ec2_sg_python_api.id
 }
+
+resource "aws_security_group_rule" "allow_grafana_node_port" {
+  type              = "ingress"
+  from_port         = 30000
+  to_port           = 30000
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ec2_sg_python_api.id
+}
+
+resource "aws_security_group_rule" "allow_prometheus_node_port" {
+  type              = "ingress"
+  from_port         = 30001
+  to_port           = 30001
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ec2_sg_python_api.id
+}
+
+
+

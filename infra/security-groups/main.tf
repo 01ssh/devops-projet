@@ -123,3 +123,12 @@ resource "aws_security_group_rule" "allow_docker_port" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.ec2_sg_python_api.id
 }
+
+resource "aws_security_group_rule" "allow_node_port" {
+  type              = "ingress"
+  from_port         = 9100
+  to_port           = 9100
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.ec2_sg_python_api.id
+}

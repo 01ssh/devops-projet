@@ -27,114 +27,23 @@ sleep 30
 
 # Mise à jour des paquets existants
 sudo apt-get update
+sudo apt-get install unzip
+sudo apt-get install -y apt-transport-https
+sudo apt-get install -y software-properties-common wget
 
 #Install K3S
 curl -sfL https://get.k3s.io | sh - 
-sudo chmod 644 /etc/rancher/k3s/k3s.yaml
-sudo k3s kubectl get node 
-sudo k3s kubectl create namespace monitoring
-sudo k3s kubectl create namespace prod
-sudo k3s kubectl create namespace test
-sudo k3s kubectl create namespace dev
+# Check for Ready node, takes ~30 seconds 
+sleep 20
+sudo chmod +r /etc/rancher/k3s/k3s.yaml
+k3s create namespace monitoring
+k3s create namespace prod
+k3s create namespace test
+k3s create namespace dev
+k3s get pods --all-namespaces
+K3S get svc --all-namespaces
+
 sudo mkdir /home/ubuntu/bravo
 cd /home/ubuntu/bravo
 touch bravo.txt
-echo "Bravo" > bravo.txt
-
-
-## Ajout de la clé GPG de Grafana
-#curl https://packages.grafana.com/gpg.key | sudo apt-key add -
-#
-## Ajout du référentiel Grafana
-#echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
-#
-#
-## Installation de Grafana
-#sudo apt-get install -y grafana
-#
-## Démarrage du service Grafana
-#sudo systemctl start grafana-server
-#
-#
-## Check for Ready node, takes ~30 seconds 
-#sudo lsof -i :9090
-#sudo ufw disable
-#
-
-#sudo lsof -i :9090
-#sudo ufw disable
-#
-## Variables
-#PROMETHEUS_VERSION="2.41.0"
-#USER="prometheus"
-#GROUP="prometheus"
-#INSTALL_DIR="/etc/prometheus"
-#DATA_DIR="/var/lib/prometheus"
-#
-## Update the package list and install prerequisites
-#sudo apt-get update
-#sudo apt-get install -y wget tar
-#
-## Create Prometheus user and group
-#sudo groupadd --system $GROUP
-#sudo useradd -s /sbin/nologin --system -g $GROUP $USER
-#
-## Download and extract Prometheus
-#wget https://github.com/prometheus/prometheus/releases/download/v${PROMETHEUS_VERSION}/prometheus-${PROMETHEUS_VERSION}.linux-amd64.tar.gz
-#tar -xvf prometheus-${PROMETHEUS_VERSION}.linux-amd64.tar.gz
-#cd prometheus-${PROMETHEUS_VERSION}.linux-amd64
-#
-## Move binaries to /usr/local/bin
-#sudo mv prometheus /usr/local/bin/
-#sudo mv promtool /usr/local/bin/
-#
-## Create directories and set permissions
-#sudo mkdir -p $INSTALL_DIR $DATA_DIR
-#sudo mv consoles $INSTALL_DIR
-#sudo mv console_libraries $INSTALL_DIR
-#sudo mv prometheus.yml $INSTALL_DIR
-#sudo chown -R $USER:$GROUP $INSTALL_DIR $DATA_DIR
-#
-## Create Prometheus service file
-#sudo tee /etc/systemd/system/prometheus.service > /dev/null <<EOF
-#[Unit]
-#Description=Prometheus
-#Wants=network-online.target
-#After=network-online.target
-#
-#[Service]
-#User=$USER
-#Group=$GROUP
-#Type=simple
-#ExecStart=/usr/local/bin/prometheus \
-#  --config.file $INSTALL_DIR/prometheus.yml \
-#  --storage.tsdb.path $DATA_DIR \
-#  --web.console.templates=$INSTALL_DIR/consoles \
-#  --web.console.libraries=$INSTALL_DIR/console_libraries
-#
-#[Install]
-#WantedBy=multi-user.target
-#EOF
-#
-## Reload systemd and start Prometheus
-#sudo systemctl daemon-reload
-#sudo systemctl enable prometheus
-#sudo systemctl start prometheus
-#
-## Clean up
-##cd ..
-##rm -rf prometheus-${PROMETHEUS_VERSION}.linux-amd64*
-#
-#
-##sudo k3s kubectl -n monitoring apply -f prometheus-clusterrole.yaml 
-##sudo k3s kubectl -n monitoring apply -f prometheus-clusterrolebinding.yaml
-##sudo k3s kubectl -n monitoring apply -f prometheus-config.yaml
-##sudo k3s kubectl -n monitoring apply -f prometheus-deployment.yaml
-##sudo k3s kubectl -n monitoring apply -f prometheus-service.yaml
-##sudo k3s kubectl -n monitoring apply -f grafana-service.yaml
-##sudo k3s kubectl -n monitoring apply -f grafana-deployment.yaml
-##sudo k3s kubectl port-forward svc/prometheus-service 9090:9090
-#
-
-
-
+echo echo "$(k3s get pods --all-namespaces)" > bravo.txt

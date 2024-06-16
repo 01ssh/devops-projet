@@ -33,7 +33,6 @@ override.tf.json
 terraform.rc
 
 # Ignore les fichiers .tfvars
-*.tfvars
 *.tar
 *.zip
 *.gz
